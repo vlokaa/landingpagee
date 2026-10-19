@@ -1,0 +1,818 @@
+/* ==========================================================================
+   BLACK OAK BARBERS — style.css
+   --------------------------------------------------------------------------
+   TABLE OF CONTENTS
+   01. Design tokens (variables)
+   02. Base / reset
+   03. Layout helpers
+   04. Typography helpers
+   05. Buttons
+   06. Header & navigation
+   07. Hero
+   08. Marquee strip
+   09. Services (cards)
+   10. The craft (about)
+   11. Gallery
+   12. Booking (CTA, form, info)
+   13. Footer
+   14. Scroll-reveal (works with script.js)
+   15. Keyframe animations
+   16. Reduced motion
+   17. Responsive (tablet, then phone)
+   ========================================================================== */
+
+
+/* 01. DESIGN TOKENS
+   ========================================================================== */
+:root {
+  --gold:  #c9a45c;   /* accent */
+  --ink:   #0c0b0a;   /* page background */
+  --panel: #161412;   /* raised surfaces */
+  --line:  #2a2622;   /* borders */
+  --txt:   #efe8dc;   /* main text */
+  --mut:   #b3a99a;   /* muted text */
+
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body:    'Manrope', sans-serif;
+}
+
+
+/* 02. BASE / RESET
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;      /* keeps anchors clear of the fixed header */
+}
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--txt);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+
+/* 03. LAYOUT HELPERS
+   ========================================================================== */
+.wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+.sec {
+  padding-top: 120px;
+  padding-bottom: 120px;
+}
+
+.sec h2 {
+  font-size: 64px;
+  line-height: 1;
+  margin: 16px 0 0;
+}
+
+
+/* 04. TYPOGRAPHY HELPERS
+   ========================================================================== */
+.disp {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.pr {                             /* price tag */
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+}
+
+
+/* 05. BUTTONS
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 30px;
+  border: 1px solid var(--gold);
+  background: var(--gold);
+  color: var(--ink);
+  font: 700 14px var(--font-body);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s, background 0.3s, color 0.3s;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(201, 164, 92, 0.28);
+}
+
+.btn.ghost {
+  background: transparent;
+  color: var(--gold);
+}
+
+.btn.ghost:hover {
+  background: var(--gold);
+  color: var(--ink);
+}
+
+.pulse {
+  animation: pulse 2.8s ease-in-out infinite;
+}
+
+
+/* 06. HEADER & NAVIGATION
+   ========================================================================== */
+.header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+  border-bottom: 1px solid transparent;
+  transition: background 0.4s, border-color 0.4s;
+}
+
+.header.scrolled {                /* class toggled by script.js */
+  background: rgba(12, 11, 10, 0.88);
+  backdrop-filter: blur(10px);
+  border-color: var(--line);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  transition: padding 0.4s;
+}
+
+.header.scrolled .nav {
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.logo b {
+  color: var(--gold);
+}
+
+/* Nav links */
+.links {
+  display: flex;
+  gap: 36px;
+  font-size: 14px;
+  color: var(--mut);
+}
+
+.links a {
+  position: relative;
+  padding: 6px 0;
+  transition: color 0.3s;
+}
+
+.links a::after {                 /* animated underline */
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gold);
+  transition: width 0.35s;
+}
+
+.links a:hover,
+.links a.active {
+  color: var(--txt);
+}
+
+.links a:hover::after,
+.links a.active::after {
+  width: 100%;
+}
+
+/* Hamburger (mobile only, shown in section 17) */
+.burger {
+  display: none;
+  position: relative;
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.burger span {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  height: 2px;
+  background: var(--txt);
+  transition: transform 0.3s, top 0.3s;
+}
+
+.burger span:first-child { top: 16px; }
+.burger span:last-child  { top: 26px; }
+
+.burger.open span:first-child {
+  top: 21px;
+  transform: rotate(45deg);
+}
+
+.burger.open span:last-child {
+  top: 21px;
+  transform: rotate(-45deg);
+}
+
+
+/* 07. HERO
+   ========================================================================== */
+.hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 48px;
+  align-items: center;
+  padding-top: 170px;
+  padding-bottom: 110px;
+}
+
+.glow {                           /* soft breathing light behind the pole */
+  position: absolute;
+  top: 40px;
+  right: -120px;
+  width: 620px;
+  height: 620px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201, 164, 92, 0.22), transparent 65%);
+  animation: breathe 7s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.hero-text {
+  position: relative;
+}
+
+.hero h1 {
+  font-size: 104px;
+  line-height: 0.92;
+  margin: 22px 0 28px;
+}
+
+.hero h1 i {
+  font-weight: 500;
+  color: var(--gold);
+}
+
+.hero p {
+  max-width: 500px;
+  margin: 0 0 38px;
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--mut);
+}
+
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.up {                             /* entrance animation, staggered inline */
+  animation: up 1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+/* Barber pole */
+.polebox {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.pole {
+  width: 130px;
+  height: 440px;
+  border: 3px solid var(--gold);
+  border-radius: 65px;
+  background: repeating-linear-gradient(
+    -45deg,
+    #a63a33 0 26px,
+    #efe8dc 26px 52px,
+    #2f4d82 52px 78px
+  );
+  background-size: 110px 110px;
+  box-shadow:
+    inset 18px 0 24px rgba(0, 0, 0, 0.45),
+    inset -14px 0 20px rgba(255, 255, 255, 0.12),
+    0 0 80px rgba(201, 164, 92, 0.18);
+  animation: spin 3.2s linear infinite;
+}
+
+.cap {
+  position: absolute;
+  left: 50%;
+  width: 150px;
+  height: 26px;
+  margin-left: -75px;
+  border-radius: 13px;
+  background: linear-gradient(var(--gold), #8a6c35);
+}
+
+
+/* 08. MARQUEE STRIP
+   ========================================================================== */
+.mq {
+  overflow: hidden;
+  white-space: nowrap;
+  background: var(--panel);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.mt {
+  display: inline-flex;
+  gap: 56px;
+  padding: 26px 0;
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-style: italic;
+  color: var(--mut);
+  animation: marq 28s linear infinite;
+}
+
+.mt span:nth-child(even) {
+  color: var(--gold);
+}
+
+.mq:hover .mt {
+  animation-play-state: paused;
+}
+
+
+/* 09. SERVICES (CARDS)
+   ========================================================================== */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-top: 60px;
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  padding: 36px 28px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  transition: transform 0.45s, border-color 0.45s, opacity 0.8s;
+}
+
+.card::before {                   /* gold line that draws in on hover */
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  border-color: #4a3f2c;
+}
+
+.card:hover::before {
+  transform: scaleX(1);
+}
+
+.card .n {
+  font-family: var(--font-display);
+  font-size: 54px;
+  line-height: 1;
+  color: #3a3228;
+}
+
+.card h3 {
+  margin: 24px 0 10px;
+  font-family: var(--font-display);
+  font-size: 30px;
+}
+
+.card p {
+  margin: 0 0 26px;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--mut);
+}
+
+
+/* 10. THE CRAFT (ABOUT)
+   ========================================================================== */
+.band {
+  background: var(--panel);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.frame {                          /* photo placeholder */
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  aspect-ratio: 4 / 5;
+  padding: 24px;
+  background: linear-gradient(145deg, #1d1a17, #100e0c);
+  border: 1px solid var(--line);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--mut);
+}
+
+.frame::after {                   /* inner gold outline */
+  content: "";
+  position: absolute;
+  inset: 14px;
+  border: 1px solid rgba(201, 164, 92, 0.35);
+  pointer-events: none;
+}
+
+.copy h2 {
+  font-size: 64px;
+  line-height: 1;
+  margin-top: 16px;
+}
+
+.copy p {
+  margin: 26px 0 0;
+  font-size: 17px;
+  line-height: 1.8;
+  color: var(--mut);
+}
+
+.stat {
+  display: flex;
+  gap: 44px;
+  margin-top: 44px;
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
+}
+
+.stat b {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 34px;
+  color: var(--gold);
+}
+
+.stat span {
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mut);
+}
+
+
+/* 11. GALLERY
+   ========================================================================== */
+.gal {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 56px;
+}
+
+.tile {
+  display: flex;
+  align-items: flex-end;
+  aspect-ratio: 3 / 4;
+  padding: 16px;
+  background: linear-gradient(160deg, #211d19, #0f0d0c);
+  border: 1px solid var(--line);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mut);
+  transition: transform 0.5s, filter 0.5s, opacity 0.8s;
+}
+
+/* staggered heights + varied tints */
+.tile:nth-child(2) { margin-top: 40px; background: linear-gradient(200deg, #2a2218, #0f0d0c); }
+.tile:nth-child(3) {                   background: linear-gradient(120deg, #1a1d22, #0f0d0c); }
+.tile:nth-child(4) { margin-top: 40px; background: linear-gradient(190deg, #261c1a, #0f0d0c); }
+
+.tile:hover {
+  transform: scale(1.04) rotate(-1deg);
+  filter: brightness(1.3);
+}
+
+
+/* 12. BOOKING (CTA, FORM, INFO)
+   ========================================================================== */
+.book-sec {
+  padding-bottom: 120px;
+}
+
+.book {
+  position: relative;
+  overflow: hidden;
+  padding: 80px 60px;
+  text-align: center;
+  background: var(--panel);
+  border: 1px solid var(--line);
+}
+
+.book > * {
+  position: relative;               /* keeps content above the light sweep */
+}
+
+.book::before {                     /* moving light sweep */
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -40%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(201, 164, 92, 0.1), transparent);
+  animation: sweep 6s ease-in-out infinite;
+}
+
+.book h2 {
+  margin: 18px 0 20px;
+  font-size: 72px;
+  line-height: 1;
+}
+
+.book p {
+  margin: 0 0 36px;
+  font-size: 17px;
+  color: var(--mut);
+}
+
+/* Form */
+.form {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) auto;
+  gap: 12px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.form input,
+.form select {
+  min-height: 48px;
+  padding: 0 16px;
+  background: var(--ink);
+  border: 1px solid var(--line);
+  color: var(--txt);
+  color-scheme: dark;
+  font: 500 15px var(--font-body);
+  transition: border-color 0.3s;
+}
+
+.form input:focus,
+.form select:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+
+.form .bad {                        /* added by script.js on invalid fields */
+  border-color: #c0564d;
+}
+
+.book p.msg {                       /* form feedback message */
+  min-height: 24px;
+  margin: 22px 0 0;
+  font-size: 16px;
+  color: var(--gold);
+}
+
+/* Hours / address / contact */
+.info {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  margin-top: 70px;
+}
+
+.info h4 {
+  margin: 0 0 14px;
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.info p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--mut);
+}
+
+
+/* 13. FOOTER
+   ========================================================================== */
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+  padding-top: 36px;
+  padding-bottom: 36px;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+  color: var(--mut);
+}
+
+
+/* 14. SCROLL-REVEAL  (the .js and .in classes are added by script.js)
+   ========================================================================== */
+.js .rv {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.js .rv.in {
+  opacity: 1;
+  transform: none;
+}
+
+.js .card.rv.in:hover {
+  transform: translateY(-10px);
+}
+
+
+/* 15. KEYFRAME ANIMATIONS
+   ========================================================================== */
+@keyframes up {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes spin {                   /* barber pole stripes */
+  to { background-position: 0 110px; }
+}
+
+@keyframes marq {
+  to { transform: translateX(-50%); }
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50%      { opacity: 1;   transform: scale(1.12); }
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201, 164, 92, 0.45); }
+  60%      { box-shadow: 0 0 0 16px rgba(201, 164, 92, 0); }
+}
+
+@keyframes sweep {
+  0%        { left: -40%; }
+  60%, 100% { left: 140%; }
+}
+
+
+/* 16. REDUCED MOTION
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .js .rv {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+
+/* 17. RESPONSIVE
+   ========================================================================== */
+
+/* Tablet and below */
+@media (max-width: 900px) {
+  /* header + mobile menu */
+  .burger  { display: block; }
+  .nav-cta { display: none; }
+
+  .links {
+    position: fixed;
+    inset: 70px 0 auto;
+    z-index: -1;
+    flex-direction: column;
+    gap: 0;
+    padding: 12px 32px 24px;
+    background: rgba(12, 11, 10, 0.97);
+    border-bottom: 1px solid var(--line);
+    transform: translateY(-130%);
+    transition: transform 0.4s;
+  }
+
+  .links.open {
+    transform: none;
+  }
+
+  .links a {
+    padding: 16px 0;
+    font-size: 16px;
+  }
+
+  /* layout */
+  .hero,
+  .split {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .hero    { padding-top: 130px; }
+  .hero h1 { font-size: 64px; }
+  .pole    { height: 320px; }
+
+  .cards,
+  .gal {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .tile:nth-child(2),
+  .tile:nth-child(4) {
+    margin-top: 0;
+  }
+
+  .info { grid-template-columns: 1fr; }
+
+  .sec h2,
+  .book h2,
+  .copy h2 {
+    font-size: 44px;
+  }
+
+  .book { padding: 56px 24px; }
+  .form { grid-template-columns: 1fr; }
+}
+
+/* Phone */
+@media (max-width: 560px) {
+  .wrap { padding: 0 20px; }
+
+  .hero h1 { font-size: 52px; }
+
+  .cards,
+  .gal {
+    grid-template-columns: 1fr;
+  }
+
+  .stat {
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+}

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Black Oak Barbers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="landing.css">
+</head>
+<body>
+
+<header class="header" id="header">
+  <div class="wrap nav">
+    <a class="logo" href="#top">BLACK <b>OAK</b></a>
+    <nav class="links" id="links">
+      <a href="#services">Services</a>
+      <a href="#craft">The Craft</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#book">Visit</a>
+    </nav>
+    <a class="btn ghost nav-cta" href="#book">Book a Chair</a>
+    <button class="burger" id="burger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="wrap hero">
+    <div class="glow"></div>
+    <div class="hero-text">
+      <div class="eyebrow up" style="animation-delay:.15s">Barbers · Est. [YEAR]</div>
+      <h1 class="disp up" style="animation-delay:.3s">Sharp lines.<br><i>Slow</i> mornings.</h1>
+      <p class="up" style="animation-delay:.5s">A dark, quiet room with warm light, hot towels and a straight razor. Walk in as you are, leave sharper than you have ever been.</p>
+      <div class="cta-row up" style="animation-delay:.7s">
+        <a class="btn pulse" href="#book">Reserve Your Chair</a>
+        <a class="btn ghost" href="#services">See Services</a>
+      </div>
+    </div>
+    <div class="polebox up" style="animation-delay:.5s">
+      <div class="cap" style="top:-12px"></div>
+      <div class="pole"></div>
+      <div class="cap" style="bottom:-12px"></div>
+    </div>
+  </section>
+
+  <div class="mq"><div class="mt">
+    <span>Classic Cuts</span><span>✦</span><span>Hot Towel Shaves</span><span>✦</span><span>Beard Sculpting</span><span>✦</span><span>Fades &amp; Tapers</span><span>✦</span>
+    <span>Classic Cuts</span><span>✦</span><span>Hot Towel Shaves</span><span>✦</span><span>Beard Sculpting</span><span>✦</span><span>Fades &amp; Tapers</span><span>✦</span>
+  </div></div>
+
+  <section class="wrap sec" id="services">
+    <div class="rv"><div class="eyebrow">What we do</div><h2 class="disp">The Menu</h2></div>
+    <div class="cards">
+      <article class="card rv"><div class="n">01</div><h3>The Classic Cut</h3><p>Scissor and clipper work, finished with a neck shave and styled to your face.</p><span class="pr">[PRICE]</span></article>
+      <article class="card rv"><div class="n">02</div><h3>Beard Sculpt</h3><p>Shaped, lined and conditioned with hot towels and a warm oil finish.</p><span class="pr">[PRICE]</span></article>
+      <article class="card rv"><div class="n">03</div><h3>Straight Razor Shave</h3><p>The old ritual. Steam, lather and a slow, close shave. Nothing rushed.</p><span class="pr">[PRICE]</span></article>
+      <article class="card rv"><div class="n">04</div><h3>The Full Works</h3><p>Cut, beard and shave in one sitting, with a scalp massage to close.</p><span class="pr">[PRICE]</span></article>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap sec split" id="craft">
+      <div class="frame rv">Photo · [YOUR SHOP INTERIOR]</div>
+      <div class="copy rv">
+        <div class="eyebrow">The craft</div>
+        <h2 class="disp">Old-school hands.<br>Modern edge.</h2>
+        <p>Every chair at Black Oak is run by a barber who treats a haircut as a craft, not a queue. We take the time to listen, then take the time to get it right.</p>
+        <p>Leather, brass, low lights and good music. It is part barbershop, part hideout.</p>
+        <div class="stat">
+          <div><b>[#]</b><span>Master barbers</span></div>
+          <div><b>[#]</b><span>Years open</span></div>
+          <div><b>1</b><span>Standard: perfect</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap sec" id="gallery">
+    <div class="rv"><div class="eyebrow">The work</div><h2 class="disp">Fresh from the chair</h2></div>
+    <div class="gal">
+      <div class="tile rv">Fade · [PHOTO]</div>
+      <div class="tile rv">Beard · [PHOTO]</div>
+      <div class="tile rv">Shave · [PHOTO]</div>
+      <div class="tile rv">Cut · [PHOTO]</div>
+    </div>
+  </section>
+
+  <section class="wrap book-sec" id="book">
+    <div class="book rv">
+      <div class="eyebrow">Walk-ins welcome</div>
+      <h2 class="disp">Your chair is waiting.</h2>
+      <p>Book ahead or just walk in. Either way, we will take care of you.</p>
+      <form class="form" id="bookForm" novalidate>
+        <input type="text" id="name" placeholder="Your name" aria-label="Your name" required>
+        <select id="service" aria-label="Service" required>
+          <option value="">Choose a service</option>
+          <option>The Classic Cut</option>
+          <option>Beard Sculpt</option>
+          <option>Straight Razor Shave</option>
+          <option>The Full Works</option>
+        </select>
+        <input type="date" id="date" aria-label="Preferred date" required>
+        <button class="btn pulse" type="submit">Book Appointment</button>
+      </form>
+      <p class="msg" id="msg" role="status"></p>
+    </div>
+    <div class="info">
+      <div><h4>Hours</h4><p>Mon – Sat: [OPEN] – [CLOSE]<br>Sunday: [OPEN] – [CLOSE]</p></div>
+      <div><h4>Find us</h4><p>[YOUR STREET ADDRESS]<br>[CITY]</p></div>
+      <div><h4>Contact</h4><p>[YOUR PHONE]<br>[YOUR EMAIL]</p></div>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap foot"><span>© <span id="year"></span> Black Oak Barbers</span><span>[YOUR INSTAGRAM]</span></footer>
+
+<script src="landing.js"></script>
+</body>
+</html>
